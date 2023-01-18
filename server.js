@@ -106,6 +106,14 @@ app.put("/mugiwara/:id", (req, res)=>{
     .catch(err=> console.log(err))
 })
         //DELETE
+app.delete('/mugiwara/:id', (req, res)=>{
+    const id = req.params.id
+    Mugiwara.findByIdAndRemove(id)
+    .then(()=>{
+        res.sendStatus(204)
+    })
+    .catch(err=>console.log(err))
+})
 
 //7. SERVER LISTENER
     //const PORT, app.listen
