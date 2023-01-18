@@ -6,8 +6,9 @@ const {Schema, model} = mongoose
 
 //3. BUILD THE SCHEMA
     //const nameSchema = new Schema ({field:types})
-const mugiwaraSchema =  new Schema({
+const characterSchema =  new Schema({
     name: String,
+    affiliation: String,
     rank: String,
     devilFruit: Boolean,
     reward: Number,
@@ -15,7 +16,7 @@ const mugiwaraSchema =  new Schema({
 
 //4. DEFINE MODEL
     // const Name = model('Name', nameSchema)
-const Mugiwara = model('Mugiwara', mugiwaraSchema)
+const Character = model('Character', characterSchema)
 
 //5. EXPORT MODEL
-module.exports = Mugiwara
+module.exports = Character
