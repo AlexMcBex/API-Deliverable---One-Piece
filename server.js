@@ -44,7 +44,6 @@ app.get("/", (req, res)=>{
 })
     //SEED
     app.get('/mugiwara/seed', (req, res) => {
-        // array of starter resources(fruits)
         const startCrew = [
             { name: "Monkey D Rufy", rank: "Captain", devilFruit: true, reward: 3000000000,},
             { name: "Roronoa Zoro", rank: "Vice-Captain", devilFruit: false, reward: 1111000000,},
