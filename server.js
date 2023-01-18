@@ -32,7 +32,7 @@ const app = express()
 
 //5. MIDDLEWARE
     //app.use morgan
-app.use(morgan('thin'))
+app.use(morgan('tiny'))
 app.use(express.urlencoded({extended:true}))
 app.use(express.static('public'))
 app.use(express.json())
@@ -85,6 +85,14 @@ app.get("/mugiwara/:id", (req, res)=>{
 })
 
         //POST
+app.post('/mugiwara', (req, res)=>{
+    const newPirate = req.body
+    Mugiwara.create(newPirate)
+        .then(pirate=>{
+            res.status(201).json({pirate:pirate.toObject()})
+        })
+        .catch(err => console.log(err))
+})
         //PATCH
         //DELETE
 
