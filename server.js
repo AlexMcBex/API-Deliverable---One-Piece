@@ -10,6 +10,7 @@ const CharacterRouter = require('./controllers/characterControllers')
 
 //2. IMPORT MODELS
 const Character = require('./models/character')
+const middleware = require('./utils/middleware')
 
 //3. DATABASE CONNECTION
     //connect .env DATABASE_URL and config
@@ -33,11 +34,13 @@ mongoose.connection
 const app = express()
 
 //5. MIDDLEWARE
-    //app.use morgan
-app.use(morgan('tiny'))
-app.use(express.urlencoded({extended:true}))
-app.use(express.static('public'))
-app.use(express.json())
+//app.use morgan
+// app.use(morgan('tiny'))
+// app.use(express.urlencoded({extended:true}))
+// app.use(express.static('public'))
+// app.use(express.json())
+    //invoke middleware function
+middleware(app)
 
 //6. DEFINE ROUTES
     //Home Route
