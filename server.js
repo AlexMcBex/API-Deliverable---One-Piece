@@ -93,7 +93,18 @@ app.post('/mugiwara', (req, res)=>{
         })
         .catch(err => console.log(err))
 })
+
         //PATCH
+app.put("/mugiwara/:id", (req, res)=>{
+    const id = req.params.id
+    const updPirate = req.body
+    Mugiwara.findByIdAndUpdate(id, updPirate, {new:true})
+    .then(pirate=>{
+        console.log("Updated a pirate: ", pirate)
+        res.sendStatus(204)
+    })
+    .catch(err=> console.log(err))
+})
         //DELETE
 
 //7. SERVER LISTENER
