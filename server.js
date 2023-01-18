@@ -65,6 +65,7 @@ app.get("/", (req, res)=>{
                 .catch(err => console.log('The following error occurred: \n', err))
         })
 })
+
     //CRUD Routes
         //INDEX
 app.get("/mugiwara", (req, res)=>{
@@ -72,7 +73,17 @@ app.get("/mugiwara", (req, res)=>{
         .then(pirate =>{res.json({pirate:pirate})})
         .catch(err => console.log('The following error occurred: \n', err))
 })
+
         //SHOW
+app.get("/mugiwara/:id", (req, res)=>{
+    const id = req.params.id
+    Mugiwara.findById(id)
+        .then(pirate =>{
+            res.json({pirate:pirate})
+        })
+        .catch(err=> console.log(err))
+})
+
         //POST
         //PATCH
         //DELETE
