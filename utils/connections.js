@@ -1,7 +1,8 @@
 //1. Import Dependencies
     //dotenv, mongoose
-const mongoose = require('mongoose')
+    
 require('dotenv').config()
+const mongoose = require('mongoose')
 
 //2. DB  CONNECTION
     //connect .env DATABASE_URL and config

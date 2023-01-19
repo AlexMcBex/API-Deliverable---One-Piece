@@ -28,7 +28,7 @@ const characterSchema =  new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: 'User'
     }
 }, {timestamps: true})
 

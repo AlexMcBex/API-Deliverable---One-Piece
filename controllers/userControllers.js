@@ -26,7 +26,8 @@ router.post('/signup', async (req,res)=>{
         })
 })
     //POST -> /users/login => new session in db and browser
-    router.post('/login', async (req,res)=>{
+    router.post('/login', async (req, res)=>
+    {
         const {username, password} = req.body
         User.findOne({username})
         .then(async (user)=>{
@@ -34,7 +35,7 @@ router.post('/signup', async (req,res)=>{
                 const result = await bcrypt.compare(password, user.password)
                 if (result){
                     req.session.username =  username
-                    req.session.loggedin = true
+                    req.session.loggedIn = true
                     req.session.userId = user.id
 
                     res.status(201).json({username: user.username})

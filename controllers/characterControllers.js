@@ -10,54 +10,95 @@ const router = express.Router()
 
 
     //CRUD Routes
-        //INDEX
+    //INDEX
 router.get("/", (req, res)=>{
-    Character.find({})
-        .then(pirate =>{res.json({pirate:pirate})})
-        .catch(err => console.log('The following error occurred: \n', err))
+Character.find({})
+    .populate('owner', '-password')
+    .then(pirate =>{res.json({pirate:pirate})})
+    .catch(err => {
+        console.log(err)
+        res.status(404).json(err)
+    })
 })
 
-        //SHOW
-router.get("/:id", (req, res)=>{
-    const id = req.params.id
-    Character.findById(id)
+//INDEX
+router.get("/mine", (req, res)=>{
+    Character.find({owner: req.session.userId})
+        .populate('owner', '-password')
         .then(pirate =>{
-            res.json({pirate:pirate})
+            res.status(200).json({pirate: pirate})})
+        .catch(err => {
+            console.log(err)
+            res.status(400).json(err)
         })
-        .catch(err=> console.log(err))
 })
 
-        //POST
-router.post('', (req, res)=>{
+
+//POST
+router.post('/', (req, res)=>{
+    req.body.owner = req.session.userId
     const newPirate = req.body
     Character.create(newPirate)
         .then(pirate=>{
             res.status(201).json({pirate:pirate.toObject()})
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
 })
 
-        //PATCH
+
+//UPDATE
 router.put("/:id", (req, res)=>{
     const id = req.params.id
-    const updPirate = req.body
-    Character.findByIdAndUpdate(id, updPirate, {new:true})
+    // const updPirate = req.body
+    // Character.findByIdAndUpdate(id, updPirate, {new:true})
+    Character.findById(id)
     .then(pirate=>{
-        console.log("Updated a pirate: ", pirate)
+        if(pirate.owner == req.session.userId){
         res.sendStatus(204)
-    })
-    .catch(err=> console.log(err))
+        return pirate.updateOne(req.body)
+        }else{
+        res.sendStatus(401)
+    }
 })
-        //DELETE
-router.delete('/:id', (req, res)=>{
-    const id = req.params.id
-    Character.findByIdAndRemove(id)
-    .then(()=>{
-        res.sendStatus(204)
+    .catch(err=> {
+        console.log(err)
+        res.sendStatus(400).json(err)
     })
-    .catch(err=>console.log(err))
 })
 
+//DELETE
+router.delete("/:id", (req, res)=>{
+    const id = req.params.id
+    Character.findById(id)
+    .then(pirate=>{
+        if(pirate.owner == req.session.userId){
+        res.sendStatus(204)
+        return pirate.deleteOne()
+        }else{
+        res.sendStatus(401)
+    }
+})
+    .catch(err=> {
+        console.log(err)
+        res.sendStatus(400).json(err)
+    })
+})
+
+//SHOW
+router.get("/:id", (req, res)=>{
+const id = req.params.id
+Character.findById(id)
+.then(pirate =>{
+    res.json({pirate:pirate})
+})
+.catch(err=> {
+    console.log(err)
+    res.status(404).json(err)
+})
+})
 //4. Export Router
 module.exports = router
 

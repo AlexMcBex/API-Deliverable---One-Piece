@@ -1,17 +1,18 @@
 //1. IMPORT DEPENDENCIES
 //express, mongoose, morgan, dotenv, path
 const express = require('express')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const morgan = require('morgan')
-const path = require('path')
 require('dotenv').config()
+const path = require('path')
 
 //Routes (Controllers)
 const CharacterRouter = require('./controllers/characterControllers')
+const UserRouter = require('./controllers/userControllers')
+const middleware = require('./utils/middleware')
 
 //2. IMPORT MODELS
 // const Character = require('./models/character')
-const middleware = require('./utils/middleware')
 
 // //3. DATABASE CONNECTION
 //     //connect .env DATABASE_URL and config
@@ -52,6 +53,7 @@ app.get("/", (req, res)=>{
 
 //connect External Routers
 app.use('/onepiece', CharacterRouter) 
+app.use('/users', UserRouter)
 
 //7. SERVER LISTENER
     //const PORT, app.listen
