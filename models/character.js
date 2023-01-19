@@ -1,5 +1,5 @@
 // 1.  IMPORT MONGOOSE
-const mongoose = require('mongoose')
+const mongoose = require('../utils/connections')
 
 //2. DEFINE SCHEMA AND MODELS FROM MONGOOSE
 const {Schema, model} = mongoose
@@ -12,6 +12,7 @@ const characterSchema =  new Schema({
     rank: String,
     devilFruit: Boolean,
     reward: Number,
+    alive: Boolean,
 })
 
 //4. DEFINE MODEL

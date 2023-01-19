@@ -5,11 +5,12 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const path = require('path')
 require('dotenv').config()
+
 //Routes (Controllers)
 const CharacterRouter = require('./controllers/characterControllers')
 
 //2. IMPORT MODELS
-const Character = require('./models/character')
+// const Character = require('./models/character')
 const middleware = require('./utils/middleware')
 
 // //3. DATABASE CONNECTION

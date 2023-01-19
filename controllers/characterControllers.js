@@ -11,15 +11,15 @@ const router = express.Router()
     //SEED
     router.get('/seed', (req, res) => {
         const startCrew = [
-            { name: "Monkey D Rufy", affiliation: "Straw Hat Pirates", rank: "Captain", devilFruit: true, reward: 3000000000,},
-            { name: "Roronoa Zoro", affiliation: "Straw Hat Pirates", rank: "Vice-Captain", devilFruit: false, reward: 1111000000,},
-            { name: "Nami", affiliation: "Straw Hat Pirates", rank: "Navigator", devilFruit: false, reward: 366000000,},
-            { name: "Usopp", affiliation: "Straw Hat Pirates", rank: "Sniper", devilFruit: false, reward: 500000000,},
-            { name: "Sanji", affiliation: "Straw Hat Pirates", rank: "Cook", devilFruit: false, reward: 1032000000,},
-            { name: "Chopper", affiliation: "Straw Hat Pirates", rank: "Doctor", devilFruit: true, reward: 1000,},
-            { name: "Nico Robin", affiliation: "Straw Hat Pirates", rank: "Scholar", devilFruit: true, reward: 930000000,},
-            { name: "Franky", affiliation: "Straw Hat Pirates", rank: "Shipwright", devilFruit: false, reward: 394000000,},
-            { name: "Brook", affiliation: "Straw Hat Pirates", rank: "Musician", devilFruit: true, reward: 383000000,},
+            { name: "Monkey D Rufy", affiliation: "Straw Hat Pirates", rank: "Captain", devilFruit: true, reward: 3000000000, alive: true},
+            { name: "Roronoa Zoro", affiliation: "Straw Hat Pirates", rank: "Vice-Captain", devilFruit: false, reward: 1111000000, alive: true},
+            { name: "Nami", affiliation: "Straw Hat Pirates", rank: "Navigator", devilFruit: false, reward: 366000000, alive: true},
+            { name: "Usopp", affiliation: "Straw Hat Pirates", rank: "Sniper", devilFruit: false, reward: 500000000, alive: true},
+            { name: "Sanji", affiliation: "Straw Hat Pirates", rank: "Cook", devilFruit: false, reward: 1032000000, alive: true},
+            { name: "Chopper", affiliation: "Straw Hat Pirates", rank: "Doctor", devilFruit: true, reward: 1000, alive: true},
+            { name: "Nico Robin", affiliation: "Straw Hat Pirates", rank: "Scholar", devilFruit: true,  reward: 930000000, alive: true},
+            { name: "Franky", affiliation: "Straw Hat Pirates", rank: "Shipwright", devilFruit: false, reward: 394000000, alive: true},
+            { name: "Brook", affiliation: "Straw Hat Pirates", rank: "Musician", devilFruit: true, reward: 383000000, alive: false},
         ]
         Character.deleteMany({})
         .then(() => {
