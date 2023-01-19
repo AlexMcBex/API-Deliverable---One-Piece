@@ -26,7 +26,36 @@ router.post('/signup', async (req,res)=>{
         })
 })
     //POST -> /users/login => new session in db and browser
-    //DELETE -> /users/logour => destroys current session
+    router.post('/login', async (req,res)=>{
+        const {username, password} = req.body
+        User.findOne({username})
+        .then(async (user)=>{
+            if (user){
+                const result = await bcrypt.compare(password, user.password)
+                if (result){
+                    req.session.username =  username
+                    req.session.loggedin = true
+                    req.session.userId = user.id
 
+                    res.status(201).json({username: user.username})
+                }else{
+                    res.json({error: 'username or password incorrect'})   
+                }
+            }else {
+                res.json({error: 'user does not exist'})   
+            }
+    })
+    .catch(err =>{
+        console.log(err)
+        res.json(err)
+    })
+})
+    //DELETE -> /users/logour => destroys current session
+router.delete('/logout', (req, res)=>{
+    req.session.destroy(()=>{
+        console.log('logging out this req.session: \n', req.session)
+        res.sendStatus(204)
+    })
+})
 //4. Export router
 module.exports = router
