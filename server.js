@@ -59,6 +59,15 @@ app.use('/characters', CharacterRouter)
 app.use('/users', UserRouter)
 app.use('/comments', commentRouter)
 
+app.get('/error', (req, res)=>{
+    const error = req.query.error || 'This page does not exist'
+    res.render('error.liquid', { error })
+})
+
+app.all('*', (req, res)=>{
+    res.redirect('/error')
+})
+
 //7. SERVER LISTENER
     //const PORT, app.listen
 const PORT = process.env.PORT

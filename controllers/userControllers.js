@@ -23,13 +23,19 @@ router.post('/signup', async (req,res)=>{
     )
     User.create(newUser)
         .then(user =>{
-            res.status(201).json({username: user.username
-            })
+            // res.status(201).json({username: user.username})
+            res.redirect('/users/login')
         })
         .catch(err => {
             console.log(err)
-            res.json(err)
+            // res.json(err)
+            res.redirect(`/error?error=username%20taken`)
         })
+})
+
+//GET -> user login
+router.get('/login', (req, res)=>{
+    res.render('users/login')
 })
     //POST -> /users/login => new session in db and browser
     router.post('/login', async (req, res)=>
@@ -44,25 +50,38 @@ router.post('/signup', async (req,res)=>{
                     req.session.loggedIn = true
                     req.session.userId = user.id
 
-                    res.status(201).json({username: user.username})
+                    // res.status(201).json({username: user.username})
+                    
+                    res.redirect('/')
                 }else{
-                    res.json({error: 'username or password incorrect'})   
+                    // res.json({error: 'username or password incorrect'})   
+                    res.redirect(`/error?error=username%20or%20password%20is%20incorrect`)
                 }
             }else {
-                res.json({error: 'user does not exist'})   
+                // res.json({error: 'user does not exist'})   
+                res.redirect(`/error?error=user%20does%20not%20exist`)
             }
     })
     .catch(err =>{
         console.log(err)
-        res.json(err)
-    })
+        // res.json(err)
+        
+        res.redirect(`/error?error=${err}`)
+    }) 
+})
+
+//GET -> /users/logout
+router.get('/logout', (req, res) => {
+    res.render('users/logout')
 })
     //DELETE -> /users/logour => destroys current session
 router.delete('/logout', (req, res)=>{
     req.session.destroy(()=>{
         console.log('logging out this req.session: \n', req.session)
-        res.sendStatus(204)
+        // res.sendStatus(204)
+        res.redirect('/')
     })
 })
+
 //4. Export router
 module.exports = router
