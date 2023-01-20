@@ -13,7 +13,9 @@ const router = express.Router()
     //INDEX
 router.get("/", (req, res)=>{
 Character.find({})
-    .populate('owner', '-password')
+    // .populate('owner', '-password')
+    .populate('owner', 'username')
+    .populate('comments.author', '-password')
     .then(pirate =>{res.json({pirate:pirate})})
     .catch(err => {
         console.log(err)
@@ -24,7 +26,9 @@ Character.find({})
 //INDEX
 router.get("/mine", (req, res)=>{
     Character.find({owner: req.session.userId})
-        .populate('owner', '-password')
+        // .populate('owner', '-password')
+    .populate('owner', 'username')
+    .populate('comments.author', '-password')
         .then(pirate =>{
             res.status(200).json({pirate: pirate})})
         .catch(err => {
@@ -91,6 +95,7 @@ router.delete("/:id", (req, res)=>{
 router.get("/:id", (req, res)=>{
 const id = req.params.id
 Character.findById(id)
+.populate('comments.author', 'username')
 .then(pirate =>{
     res.json({pirate:pirate})
 })
