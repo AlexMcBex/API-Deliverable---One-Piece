@@ -9,6 +9,7 @@ const path = require('path')
 //Routes (Controllers)
 const CharacterRouter = require('./controllers/characterControllers')
 const UserRouter = require('./controllers/userControllers')
+const commentRouter = require('./controllers/commentControllers')
 const middleware = require('./utils/middleware')
 
 //2. IMPORT MODELS
@@ -54,6 +55,7 @@ app.get("/", (req, res)=>{
 //connect External Routers
 app.use('/onepiece', CharacterRouter) 
 app.use('/users', UserRouter)
+app.use('/comments', commentRouter)
 
 //7. SERVER LISTENER
     //const PORT, app.listen

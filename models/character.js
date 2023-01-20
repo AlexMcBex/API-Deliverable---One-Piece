@@ -1,6 +1,8 @@
 // 1.  IMPORT MONGOOSE
 const mongoose = require('../utils/connections')
 // const User = require('./user')
+//import comment Schema
+const commSchema = require('./comment')
 
 //2. DEFINE SCHEMA AND MODELS FROM MONGOOSE
 const {Schema, model} = mongoose
@@ -29,7 +31,8 @@ const characterSchema =  new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    comments: [commSchema]
 }, {timestamps: true})
 
 //4. DEFINE MODEL
