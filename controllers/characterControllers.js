@@ -16,7 +16,11 @@ Character.find({})
     // .populate('owner', '-password')
     .populate('owner', 'username')
     .populate('comments.author', '-password')
-    .then(pirate =>{res.json({pirate:pirate})})
+    // .then(pirates =>{res.json({pirates:pirates})})
+    .then(characters =>{
+        // res.json({ pirates: pirates})
+        res.render('characters/index', {characters})
+    })
     .catch(err => {
         console.log(err)
         res.status(404).json(err)

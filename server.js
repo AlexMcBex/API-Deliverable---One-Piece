@@ -55,7 +55,7 @@ app.get("/", (req, res)=>{
 
 
 //connect External Routers
-app.use('/onepiece', CharacterRouter) 
+app.use('/characters', CharacterRouter) 
 app.use('/users', UserRouter)
 app.use('/comments', commentRouter)
 

@@ -1,0 +1,13 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+{% if characters.length  > 0 %}
+<h2>List of Characters</h2>
+<ul>
+    {% for character in characters %}
+        <li>{{ character.name }}, {{ character.rank}} of the {{ character.affiliation}} with a bounty of {{ character.reward }} Berry</li>
+    {% endfor %}
+</ul>
+{% else %}
+    <h2>No Characters Yet... Make some!</h2>
+{% endif %}
+{% endblock  %}
