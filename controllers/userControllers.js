@@ -8,9 +8,15 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 
 //3. Routes
+    //GET -> users/signup
+    router.get('/signup', (req, res)=>{
+        res.render('users/signup')
+    })
+
     //POST -> /users/signup => new user
 router.post('/signup', async (req,res)=>{
     const newUser = req.body
+    console.log('req.body in SIGNUP : ', req.body)
     newUser.password = await bcrypt.hash(
         newUser.password,
         await bcrypt.genSalt(10)
