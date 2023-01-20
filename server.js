@@ -34,7 +34,8 @@ const middleware = require('./utils/middleware')
 
 //4. EXPRESS  APP OBJECT
     //store express() in app variable
-const app = express()
+// const app = express()
+const app = require('liquid-express-views')(express())
 
 //5. MIDDLEWARE
 //app.use morgan
@@ -48,7 +49,8 @@ middleware(app)
 //6. DEFINE ROUTES
     //Home Route
 app.get("/", (req, res)=>{
-    res.send('<h1>HOME PAGE</h1>')
+    // res.send('<h1>HOME PAGE</h1>')
+    res.render('home.liquid')
 })
 
 
