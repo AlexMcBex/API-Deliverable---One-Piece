@@ -49,8 +49,9 @@ middleware(app)
 //6. DEFINE ROUTES
     //Home Route
 app.get("/", (req, res)=>{
+    const { username, loggedIn, userId } = req.session
     // res.send('<h1>HOME PAGE</h1>')
-    res.render('home.liquid')
+    res.render('home.liquid' , {username, loggedIn, userId })
 })
 
 
@@ -61,7 +62,9 @@ app.use('/comments', commentRouter)
 
 app.get('/error', (req, res)=>{
     const error = req.query.error || 'This page does not exist'
-    res.render('error.liquid', { error })
+    
+    const { username, loggedIn, userId } = req.session
+    res.render('error.liquid', { error, username, loggedIn, userId })
 })
 
 app.all('*', (req, res)=>{

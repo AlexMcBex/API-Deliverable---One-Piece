@@ -12,6 +12,7 @@ const router = express.Router()
     //CRUD Routes
     //INDEX
 router.get("/", (req, res)=>{
+    const{ username, loggedIn, userId} = req.session
 Character.find({})
     // .populate('owner', '-password')
     .populate('owner', 'username')
@@ -19,7 +20,7 @@ Character.find({})
     // .then(pirates =>{res.json({pirates:pirates})})
     .then(characters =>{
         // res.json({ pirates: pirates})
-        res.render('characters/index', {characters})
+        res.render('characters/index', {characters , username, loggedIn, userId })
     })
     .catch(err => {
         console.log(err)
