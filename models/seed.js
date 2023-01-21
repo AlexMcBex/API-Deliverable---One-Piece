@@ -32,15 +32,16 @@ const db = mongoose.connection
 
 db.on('open', () =>{
     const startCrew = [
-        { name: "Monkey D Rufy", affiliation: "Straw Hat Pirates", rank: "Captain", devilFruit: true, reward: 3000000000, alive: true},
-        { name: "Roronoa Zoro", affiliation: "Straw Hat Pirates", rank: "Vice-Captain", devilFruit: false, reward: 1111000000, alive: true},
-        { name: "Nami", affiliation: "Straw Hat Pirates", rank: "Navigator", devilFruit: false, reward: 366000000, alive: true},
-        { name: "Usopp", affiliation: "Straw Hat Pirates", rank: "Sniper", devilFruit: false, reward: 500000000, alive: true},
-        { name: "Sanji", affiliation: "Straw Hat Pirates", rank: "Cook", devilFruit: false, reward: 1032000000, alive: true},
-        { name: "Chopper", affiliation: "Straw Hat Pirates", rank: "Doctor", devilFruit: true, reward: 1000, alive: true},
-        { name: "Nico Robin", affiliation: "Straw Hat Pirates", rank: "Scholar", devilFruit: true,  reward: 930000000, alive: true},
-        { name: "Franky", affiliation: "Straw Hat Pirates", rank: "Shipwright", devilFruit: false, reward: 394000000, alive: true},
-        { name: "Brook", affiliation: "Straw Hat Pirates", rank: "Musician", devilFruit: true, reward: 383000000, alive: false},
+        { name: "Monkey D Rufy", pirate: true, affiliation: "Straw Hat Pirates", rank: "Captain", devilFruit: true, reward: 3000000000, alive: true},
+        { name: "Roronoa Zoro", pirate: true, affiliation: "Straw Hat Pirates", rank: "Vice-Captain", devilFruit: false, reward: 1111000000, alive: true},
+        { name: "Nami", pirate: true, affiliation: "Straw Hat Pirates", rank: "Navigator", devilFruit: false, reward: 366000000, alive: true},
+        { name: "Usopp", pirate: true, affiliation: "Straw Hat Pirates", rank: "Sniper", devilFruit: false, reward: 500000000, alive: true},
+        { name: "Sanji", pirate: true, affiliation: "Straw Hat Pirates", rank: "Cook", devilFruit: false, reward: 1032000000, alive: true},
+        { name: "Chopper", pirate: true, affiliation: "Straw Hat Pirates", rank: "Doctor", devilFruit: true, reward: 1000, alive: true},
+        { name: "Nico Robin", pirate: true, affiliation: "Straw Hat Pirates", rank: "Scholar", devilFruit: true,  reward: 930000000, alive: true},
+        { name: "Franky", pirate: true, affiliation: "Straw Hat Pirates", rank: "Shipwright", devilFruit: false, reward: 394000000, alive: true},
+        { name: "Brook", pirate: true, affiliation: "Straw Hat Pirates", rank: "Musician", devilFruit: true, reward: 383000000, alive: false},
+        { name: "Akainu", pirate: false, affiliation: "MARINE", rank: "Admiral", devilFruit: true, reward: 0, alive: true},
     ]
     Character.deleteMany({owner: null})
     .then(() => {
@@ -48,7 +49,7 @@ db.on('open', () =>{
             .then(data => {
                 console.log("Created characters: \n", data)
                 db.close()
-            })
+            }) 
             .catch(err => {
                 console.log(err)
                 db.close()

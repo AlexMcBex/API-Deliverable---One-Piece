@@ -34,8 +34,10 @@ router.get("/mine", (req, res)=>{
         // .populate('owner', '-password')
     .populate('owner', 'username')
     .populate('comments.author', '-password')
-        .then(pirate =>{
-            res.status(200).json({pirate: pirate})})
+        .then(characters =>{
+            // res.status(200).json({character: characters})
+            res.render('/characters/index', {characters, ...req.session})
+        })
         .catch(err => {
             console.log(err)
             res.status(400).json(err)

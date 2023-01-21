@@ -1,13 +1,46 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 {% if characters.length  > 0 %}
+<div class="container-md">
 <h2>List of Characters</h2>
-<ul>
+<div class="row">
     {% for character in characters %}
-        <li>{{ character.name }}, {{ character.rank}} of the {{ character.affiliation}} with a bounty of {{ character.reward }} Berry</li>
+        <div class="card me-3 mb-3" style="width: 18rem;">
+            <h4 class="card-header">
+                {% if character.pirate %}
+            WANTED
+                {% else  %}
+            {{ character.affiliation }}
+                {% endif %}
+            </h4>
+            <div class="card-body">
+                <h6 class="card-title">
+                    {% if character.pirate %}
+                    Dead or Alive
+                    {% else  %}
+                    {{ character.rank}}
+                    {% endif %}
+                </h6><br>
+                <h3> {{ character.name }}</h3>
+                <i class="card-text">
+                    {% if character.reward > 0 %}
+                    ฿: {{ character.reward }}
+                    {% endif %}
+                </i>
+                
+            </div>
+            {% if character.pirate %}
+            <a href="characters/{{ character.id }}" class="btn btn-warning mb-3">View ~{{ character.name }}~</a>
+            {% else  %}
+            <a href="characters/{{ character.id }}" class="btn btn-info mb-3">View ~{{ character.name }}~</a>
+            {% endif %}
+        </div>
     {% endfor %}
-</ul>
+</div>
+</div>
 {% else %}
+    <div class="container-md">
     <h2>No Characters Yet... Make some!</h2>
+    </div>
 {% endif %}
 {% endblock  %}

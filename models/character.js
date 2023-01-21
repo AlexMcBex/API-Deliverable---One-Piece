@@ -11,7 +11,12 @@ const {Schema, model} = mongoose
     //const nameSchema = new Schema ({field:types})
 const characterSchema =  new Schema({
     name: {
-       type:  String
+       type:  String,
+       required: true,
+    },
+    pirate: {
+        type: Boolean,
+        required: true
     },
     affiliation: {
        type:  String
@@ -20,13 +25,15 @@ const characterSchema =  new Schema({
         type: String
     },
     devilFruit: {
-        type: Boolean
+        type: Boolean,
+        required: true
     },
     reward: {
         type: Number
     },
     alive: {
-        type: Boolean
+        type: Boolean,
+        required: true
     },
     owner: {
         type: Schema.Types.ObjectId,

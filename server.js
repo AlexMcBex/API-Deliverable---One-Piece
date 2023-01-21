@@ -63,8 +63,8 @@ app.use('/comments', commentRouter)
 app.get('/error', (req, res)=>{
     const error = req.query.error || 'This page does not exist'
     
-    const { username, loggedIn, userId } = req.session
-    res.render('error.liquid', { error, username, loggedIn, userId })
+    // const { username, loggedIn, userId } = req.session
+    res.render('error.liquid', { error, ...req.session})
 })
 
 app.all('*', (req, res)=>{
