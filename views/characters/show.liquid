@@ -31,9 +31,20 @@
     </div>
     {% endif %}
     <hr>
+    </article>
+    <h4>comments</h4>
+    <hr>
+    {% if character.comments.length > 0 %}
+    <div class="container-sm justify-content-center">
+        {% for comm in character.comments %}
+            {% render '../comment.liquid', comm: comm, userId: userId, character: character %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <small>No comments yet...</small>
+    {% endif %}
     {% if character.owner %}
     <small>character made by: {{ character.owner }} </small>
     {%endif%}
-    </article>
 </div>
 {% endblock  %}

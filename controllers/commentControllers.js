@@ -37,24 +37,29 @@ router.delete('/delete/:charId/:commId', (req,res)=>{
     //store the params ids
     const {charId, commId} = req.params
     Character.findById(charId)
-        .then(char =>{
-            const theComment = char.comments.id(commId)
+        .then(character =>{
+            const theComment = character.comments.id(commId)
             console.log("comment deleted --> ", theComment)
             if(req.session.loggedIn){
                 if(theComment.author == req.session.userId){
                     theComment.remove()
-                    char.save()
-                    res.sendStatus(204)//no context
+                    character.save()
+                    // res.sendStatus(204)//no context
+                    res.redirect(`/characters/${character.id}`)
                 }else{
-                        res.sendStatus(401) //unauthorized
+                        // res.sendStatus(401) //unauthorized
+                        res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20comment`)
                 }
             }else{
-                res.sendStatus(401) //unauthorized
+                // res.sendStatus(401) //unauthorized
+                res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20comment`)
             }
         })
         .catch(err=>{
             console.log(err)
-            res.status(400).json(err)
+            // res.status(400).json(err)
+            
+            res.redirect(`/error?error=${err}`)
         })
 })
 
