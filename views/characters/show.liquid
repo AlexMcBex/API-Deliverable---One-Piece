@@ -21,6 +21,10 @@
     {% else %}
     <p>Status: Dead</p>
     {%endif%}
+    <hr>
+    {% if character.owner %}
+    <small>character made by: {{ character.owner }} </small>
+    {%endif%}
     </article>
 </div>
 {% endblock  %}

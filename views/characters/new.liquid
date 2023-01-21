@@ -1,0 +1,35 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/characters" method="POST">
+    <fieldset>
+        <legend>Make a new Character Card</legend>
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control"name="name" placeholder="Character's Name" required>
+    
+        <label class="form-label">Is your character a pirate?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="pirate"> <br>
+
+        <label class="form-label">Who is your character loyal to?:</label>
+        <input type="text" class="form-control"name="affiliation" placeholder="Who is your character loyal to?">
+
+        <label class="form-label">What is your character's rank?:</label>
+        <input type="text" class="form-control"name="rank" placeholder="Character's Rank">
+
+        <label class="form-label">Does your Character have Devil Fruit's Powers?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="devilFruit"> <br>
+
+        <label class="form-label">What is the bounty on your character? (if they're not wanted keep this to 0):</label>
+        <input type="number" class="form-control"
+        name="reward" >
+
+        <label class="form-label">Is your character still alive?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="alive" > <br>
+        <input type="submit" class="btn btn-success" value="Create New Character Card">
+        <input type="reset" class="btn btn-warning" value="Reset">
+    </fieldset></form>
+</div>
+{% endblock  %}

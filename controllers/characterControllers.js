@@ -28,7 +28,7 @@ Character.find({})
     })
 })
 
-//INDEX
+//INDEX -- MINE
 router.get("/mine", (req, res)=>{
     Character.find({owner: req.session.userId})
         // .populate('owner', '-password')
@@ -36,7 +36,7 @@ router.get("/mine", (req, res)=>{
     .populate('comments.author', '-password')
         .then(characters =>{
             // res.status(200).json({character: characters})
-            res.render('/characters/index', {characters, ...req.session})
+            res.render('characters/index', {characters, ...req.session})
         })
         .catch(err => {
             console.log(err)
@@ -45,9 +45,18 @@ router.get("/mine", (req, res)=>{
 })
 
 
-//POST
+//GET - Form to create a new char
+router.get('/new', (req, res)=>{
+    res.render('characters/new' , { ...req.session })
+})
+
+//POST - CREATE
 router.post('/', (req, res)=>{
     req.body.owner = req.session.userId
+    //checkboxes
+    req.body.pirate = req.body.pirate === 'on' ? true : false
+    req.body.devilFruit = req.body.devilFruit === 'on' ? true : false
+    req.body.alive = req.body.alive === 'on' ? true : false
     const newPirate = req.body
     Character.create(newPirate)
         .then(pirate=>{
@@ -56,6 +65,20 @@ router.post('/', (req, res)=>{
         .catch(err => {
             console.log(err)
             res.status(404).json(err)
+        })
+})
+
+//GET -> INDEX Mine JSON
+router.get('/json', (req, res)=>{
+    Character.find({ owner: req.session.userId})
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+        .then(characters =>{
+            res.status(200),json({characters: characters})
+        })
+        .catch(err =>{
+            console.log(err)
+            res.status(400).json(err)
         })
 })
 
