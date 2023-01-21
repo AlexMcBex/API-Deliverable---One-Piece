@@ -1,0 +1,26 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-md">
+    <article>
+        <h2>{{ character.name }}</h2>
+        <hr>
+        {% if character.rank %}
+        <h4>{{ character.rank }} of {{ character.affiliation }}</h4>
+        {% else %}
+        <h4>Member of {{ character.affiliation }}</h4>
+        {% endif %}
+        {% if character.reward > 0 %}
+        <h6>Wanted for ฿: {{ character.reward }}</h6>
+    {% endif %}
+    {% if character.devilFruit %}
+        <p>Devil Fruit User</p> 
+    {% else %}
+    {%endif%}
+    {% if character.alive%}
+    <p>Status: Alive</p>
+    {% else %}
+    <p>Status: Dead</p>
+    {%endif%}
+    </article>
+</div>
+{% endblock  %}

@@ -103,8 +103,10 @@ router.get("/:id", (req, res)=>{
 const id = req.params.id
 Character.findById(id)
 .populate('comments.author', 'username')
-.then(pirate =>{
-    res.json({pirate:pirate})
+.then(character =>{
+    // res.json({pirate:character})
+    res.render('characters/show.liquid', {character, ...req.session})
+
 })
 .catch(err=> {
     console.log(err)
