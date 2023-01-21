@@ -140,6 +140,9 @@ router.delete("/:id", (req, res)=>{
         res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20character`)
     }
 })
+.then(()=>{
+    res.redirect('/characters/mine')
+})
     .catch(err=> {
         console.log(err)
         // res.sendStatus(400).json(err)

@@ -15,19 +15,23 @@ router.post('/:charId', (req,res)=>{
         const newComment = req.body
         newComment.author = req.session.userId
         Character.findById(charId)
-            .then(char =>{
-                char.comments.push(newComment)
-                return char.save()
+            .then(character =>{
+                character.comments.push(newComment)
+                return character.save()
             })
-            .then(char=>{
-                res.status(201).json({character: char})
+            .then(character=>{
+                // res.status(201).json({character: character})
+                res.redirect(`/characters/${character.id}`)
             })
             .catch(err=>{
                 console.log(err)
-                res.status(401) //unauthorized
+                // res.status(401) //unauthorized
+                
+                res.redirect(`/error?error=${err}`)
             })
     }else{
-        res.sendStatus(401)//unauthorized
+        // res.sendStatus(401)//unauthorized
+        res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20comment%20on%20this%20fruit`)
     }
 })
 
