@@ -24,24 +24,9 @@ Character.find({})
     })
     .catch(err => {
         console.log(err)
-        res.status(404).json(err)
+        // res.status(404).json(err)
+        res.redirect(`/error?error=${err}`)
     })
-})
-
-//INDEX -- MINE
-router.get("/mine", (req, res)=>{
-    Character.find({owner: req.session.userId})
-        // .populate('owner', '-password')
-    .populate('owner', 'username')
-    .populate('comments.author', '-password')
-        .then(characters =>{
-            // res.status(200).json({character: characters})
-            res.render('characters/index', {characters, ...req.session})
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(400).json(err)
-        })
 })
 
 
@@ -59,18 +44,38 @@ router.post('/', (req, res)=>{
     req.body.alive = req.body.alive === 'on' ? true : false
     const newPirate = req.body
     Character.create(newPirate)
-        .then(pirate=>{
-            res.status(201).json({pirate:pirate.toObject()})
+    .then(pirate=>{
+            // res.status(201).json({pirate:pirate.toObject()})
+            
+        res.redirect(`/characters/${character.id}`)
         })
         .catch(err => {
             console.log(err)
-            res.status(404).json(err)
+            // res.status(404).json(err)
+            res.redirect(`/error?error=${err}`)
         })
-})
+    })
+    
+    //INDEX -- MINE
+    router.get("/mine", (req, res)=>{
+        Character.find({owner: req.session.userId})
+            // .populate('owner', '-password')
+        .populate('owner', 'username')
+        .populate('comments.author', '-password')
+            .then(characters =>{
+                // res.status(200).json({character: characters})
+                res.render('characters/index', {characters, ...req.session})
+            })
+            .catch(err => {
+                console.log(err)
+                // res.status(400).json(err)
+                res.redirect(`/error?error=${err}`)
+            })
+    })
 
-//GET -> INDEX Mine JSON
-router.get('/json', (req, res)=>{
-    Character.find({ owner: req.session.userId})
+    //GET -> INDEX Mine JSON
+    router.get('/json', (req, res)=>{
+        Character.find({ owner: req.session.userId})
         .populate('owner', 'username')
         .populate('comments.author', '-password')
         .then(characters =>{
@@ -80,8 +85,8 @@ router.get('/json', (req, res)=>{
             console.log(err)
             res.status(400).json(err)
         })
-})
-
+    })
+    
 
 //UPDATE
 router.put("/:id", (req, res)=>{
@@ -94,12 +99,14 @@ router.put("/:id", (req, res)=>{
         res.sendStatus(204)
         return pirate.updateOne(req.body)
         }else{
-        res.sendStatus(401)
+        // res.sendStatus(401)
+        res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20edit%20this%20character`)
     }
 })
     .catch(err=> {
         console.log(err)
-        res.sendStatus(400).json(err)
+        // res.sendStatus(400).json(err)
+        res.redirect(`/error?error=${err}`)
     })
 })
 
@@ -109,15 +116,17 @@ router.delete("/:id", (req, res)=>{
     Character.findById(id)
     .then(pirate=>{
         if(pirate.owner == req.session.userId){
-        res.sendStatus(204)
+        // res.sendStatus(204)
         return pirate.deleteOne()
         }else{
-        res.sendStatus(401)
+        // res.sendStatus(401)
+        res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20character`)
     }
 })
     .catch(err=> {
         console.log(err)
-        res.sendStatus(400).json(err)
+        // res.sendStatus(400).json(err)
+        res.redirect(`/error?error=${err}`)
     })
 })
 
@@ -133,7 +142,8 @@ Character.findById(id)
 })
 .catch(err=> {
     console.log(err)
-    res.status(404).json(err)
+    // res.status(404).json(err)
+    res.redirect(`/error?error=${err}`)
 })
 })
 //4. Export Router
