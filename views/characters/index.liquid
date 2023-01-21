@@ -30,9 +30,9 @@
                 
             </div>
             {% if character.pirate %}
-            <a href="characters/{{ character.id }}" class="btn btn-warning mb-3">View ~{{ character.name }}~</a>
+            <a href="/characters/{{ character.id }}" class="btn btn-warning mb-3">View ~{{ character.name }}~</a>
             {% else  %}
-            <a href="characters/{{ character.id }}" class="btn btn-info mb-3">View ~{{ character.name }}~</a>
+            <a href="/characters/{{ character.id }}" class="btn btn-info mb-3">View ~{{ character.name }}~</a>
             {% endif %}
         </div>
     {% endfor %}

@@ -17,9 +17,9 @@ Character.find({})
     // .populate('owner', '-password')
     .populate('owner', 'username')
     .populate('comments.author', '-password')
-    // .then(pirates =>{res.json({pirates:pirates})})
+    // .then(characters =>{res.json({characters:characters})})
     .then(characters =>{
-        // res.json({ pirates: pirates})
+        // res.json({ characters: characters})
         res.render('characters/index', {characters , username, loggedIn, userId })
     })
     .catch(err => {
@@ -42,10 +42,10 @@ router.post('/', (req, res)=>{
     req.body.pirate = req.body.pirate === 'on' ? true : false
     req.body.devilFruit = req.body.devilFruit === 'on' ? true : false
     req.body.alive = req.body.alive === 'on' ? true : false
-    const newPirate = req.body
-    Character.create(newPirate)
-    .then(pirate=>{
-            // res.status(201).json({pirate:pirate.toObject()})
+    const newCharacter = req.body
+    Character.create(newCharacter)
+    .then(character=>{
+            // res.status(201).json({character: character.toObject()})
             
         res.redirect(`/characters/${character.id}`)
         })
@@ -87,21 +87,38 @@ router.post('/', (req, res)=>{
         })
     })
     
+// GET--> edit route
+router.get('/edit/:id', (req, res) =>{
+    const CharId = req.params.id
+    Character.findById(CharId)
+        .then(character=>{
+            res.render('characters/edit', {character, ...req.session})
+        })
+        .catch(err =>{
+            res.redirect(`/error?error=${err}`)
+        })
+})
 
 //UPDATE
 router.put("/:id", (req, res)=>{
     const id = req.params.id
-    // const updPirate = req.body
-    // Character.findByIdAndUpdate(id, updPirate, {new:true})
+    req.body.pirate = req.body.pirate === 'on' ? true : false
+    req.body.devilFruit = req.body.devilFruit === 'on' ? true : false
+    req.body.alive = req.body.alive === 'on' ? true : false
+    // const updCharacter = req.body
+    // Character.findByIdAndUpdate(id, updCharacter, {new:true})
     Character.findById(id)
-    .then(pirate=>{
-        if(pirate.owner == req.session.userId){
-        res.sendStatus(204)
-        return pirate.updateOne(req.body)
+    .then(character=>{
+        if(character.owner == req.session.userId){
+        // res.sendStatus(204)
+        return character.updateOne(req.body)
         }else{
         // res.sendStatus(401)
         res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20edit%20this%20character`)
     }
+})
+.then(() =>{
+    res.redirect('/characters')
 })
     .catch(err=> {
         console.log(err)
@@ -114,10 +131,10 @@ router.put("/:id", (req, res)=>{
 router.delete("/:id", (req, res)=>{
     const id = req.params.id
     Character.findById(id)
-    .then(pirate=>{
-        if(pirate.owner == req.session.userId){
+    .then(character=>{
+        if(character.owner == req.session.userId){
         // res.sendStatus(204)
-        return pirate.deleteOne()
+        return character.deleteOne()
         }else{
         // res.sendStatus(401)
         res.redirect(`/error?error=You%20Are%20not%20allowed%20to%20delete%20this%20character`)
@@ -136,7 +153,7 @@ const id = req.params.id
 Character.findById(id)
 .populate('comments.author', 'username')
 .then(character =>{
-    // res.json({pirate:character})
+    // res.json({character:character})
     res.render('characters/show.liquid', {character, ...req.session})
 
 })

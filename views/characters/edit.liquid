@@ -1,0 +1,47 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/characters/{{character.id}}?_method=PUT" method="POST">
+    <fieldset>
+        <legend>Edit {{ character.name }}</legend>
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control"name="name" placeholder="Character's Name" required value="{{ character.name }}">
+    
+        <label class="form-label">Is your character a pirate?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="pirate"
+        {% if character.pirate%}
+        checked
+        {% endif %}> <br>
+
+        <label class="form-label">Who is your character loyal to?:</label>
+        
+        <input type="text" class="form-control"name="affiliation" placeholder="Who is your character loyal to?" value="{{ character.affiliation }}">
+
+        <label class="form-label">What is your character's rank?:</label>
+        <input type="text" class="form-control"name="rank" placeholder="Character's Rank" value="{{ character.rank }}">
+
+        <label class="form-label">Does your Character have Devil Fruit's Powers?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="devilFruit"
+        {% if character.devilFruit%}
+        checked
+        {% endif %}> <br>
+
+        <label class="form-label">What is the bounty on your character? (if they're not wanted keep this to 0):</label>
+        <input type="number" class="form-control"
+        name="reward" value="{{ character.reward }} ">
+
+        <label class="form-label">Is your character still alive?:</label>
+        <input type="checkbox" class="form-check-control"
+        name="alive" 
+        {% if character.alive %}
+        checked
+        {% endif %}> <br>
+        </fieldset>
+        <input type="submit" class="btn btn-success" value="Edit {{ character.name }}">
+
+        <a href="/characters/{{ character.id }}" class="btn btn-warning" >Back</a>
+    </form>
+</div>
+{% endblock  %}
